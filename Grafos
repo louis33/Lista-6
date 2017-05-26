@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+
+    int campo;
+    struct Item* prox;
+
+}Item;
+
+Item* lista[TOTALVERTICES+1];
+
+void imprimir(Item *lista);
+void Inserir_Aresta(Item *lista, int a, int b);
+
+void imprimir(Item*lista){
+
+    int i;
+    Item* tmp;
+    for(i=1; i<TOTALVERTICES; i++){
+        tmp = lista[i]->prox;
+        printf("%2d: (%d) ==> ", i,lista[i]->campo);
+        while(tmp != NULL){
+
+            printf("%d ", tmp->campo);
+            tmp = tmp->prox;
+        }
+
+        printf("\n");
+    }
+
+}
+
+void Inserir_Aresta(Item *lista, int a, int b){
+
+    Item *aux;
+    Item *tmp;
+
+    aux = (Item *)malloc((int)sizeof(Item));
+    aux->campo = b;
+    aux->prox = NULL;
+
+    lista[a]->campo = lista[a]->campo + 1;
+
+    if(lista[a]->prox == null)
+            lista[a]->prox = aux;
+
+    else {
+
+        tmp = lista[a]->prox;
+
+        if(tmp->campo > b){
+            aux->prox = tmp->prox;
+            tmp->prox = aux;
+        }
+
+        else if(tmp->prox == null){
+            aux->prox = tmp->prox;
+            tmp->prox = aux;
+
+        }
+
+        else{
+
+            while((tmp->prox != null) && (tmp->prox->campo < b)){
+
+                tmp = tmp->prox;
+                aux->prox = tmp->prox;
+                tmp->prox = aux;
+
+            }
+
+        }
+    }
+}
+
+int main(int argc, char *argv[]){
+
+    int i,a,b;
+
+    FILE *fp;
+    fb = fopen(argv[1], "r");
+    if(!fp){
+
+        printf("Erro ao abrir o arquivo \s.\n", argv[1]);
+        return 0;
+
+    }
+    for(i=1; i<TOTALDEVERTICES; i++){
+
+        lista[i]->campo = 0;
+        lista[i]->prox = null;
+
+    }
+
+    fscanf(fp, "%d %d", &a, &b);
+    while(!feop(fp)){
+
+        Inserir_Aresta(lista,a,b);
+        Inserir_Aresta(lista,b,a);
+        fscanf(fp, "%d %d", &a,&b);
+    }
+
+    imprimir(lista);
+
+}
