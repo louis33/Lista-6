@@ -1,0 +1,255 @@
+t_celula *ultimo, *primeiro;
+typedef struct celula{
+
+    int valor;
+    int lin, col;
+    struct celula *prox;
+    struct celula *ant;
+
+}t_celula;
+
+t_celula* criar_celula(int lin, int col, int valor){
+
+    t_celula *novo;
+    novo = (t_celula*)malloc(sizeof(t_celula));
+
+    if(!novo){
+
+        printf("Alocaçao incompleta")
+        exit(1);
+
+    }
+
+    novo->valor = valor;
+    novo->lin = lin;
+    novo->col = col;
+
+    return novo;
+}
+
+t_celula* existe_celula(int lin, int col){
+
+    t_celula* p;
+
+    while(p){
+
+        if(p->lin == lin && p->col == col){
+
+            return p;
+
+            p->prox = p;
+        }
+
+    return NULL;
+    }
+
+}
+
+void imprimir_elementos(){
+
+    t_celula* p;
+
+    while(p){
+
+        printf(("%d %d)/n", p->lin,p->col);
+
+    }
+}
+
+void inserir(t_celula* novo){
+
+    t_celula *cel = existe_celula(novo->lin, novo->col);
+
+    if(!cel){
+
+        if(!ultimo){
+
+            novo->prox = NULL;
+            novo->ant = NULL;
+
+            ultimo = novo;
+            primeiro = novo;
+
+        }
+        else{
+
+            t_celula *p, *ant;
+
+            p = primeiro;
+            ant = p->ant;
+
+            while(p){
+
+                if((p>lin  < novo->lin) || (p->lin == novo->lin) && (p->lin + p->col) < (novo->lin + novo->col))){
+
+                    ant = p;
+                    p = p->prox;
+
+                }
+
+                else {
+
+
+
+        if(p->ant){
+
+            p->ant->prox = novo;
+            novo->prox = p;
+            novo->ant = p->ant;
+            p->ant = novo;
+
+            return;
+        }
+
+            novo->prox = p;
+            novo->ant = null;
+            p->ant = novo;
+            primeiro = novo;
+
+            return;
+
+                }
+
+    }
+
+    ant->prox = novo;
+    novo->prox = null;
+    novo->ant = ant;
+    ultimo = novo;
+
+        }
+
+    }
+
+    else {
+
+        cel->valor = novo->valor;
+
+    }
+
+}
+
+void deletar(int lin, int col){
+
+    if(existe_celula(lin,col)){
+
+        if(primeiro->lin == lin && primeiro->col == col){
+
+            t_celula *prox = primeiro->prox;
+
+            free(primeiro);
+
+            if(prox){
+
+                prox->ant = null;
+
+             primeiro = prox;
+
+             return;
+
+            }
+
+            t_celula *p = primeiro->prox;
+
+            while(p){
+
+                if(p->lin == lin && p->col = col){
+
+                    if(p->prox){
+
+                        p->ant->prox = p->prox;
+                        p->prox->ant = p->ant;
+
+                    }
+
+                    else{
+
+                        p->ant->prox = null;
+                        ultimo = p->ant;;
+
+                    }
+
+                    free(p);
+                    return;
+                }
+
+                p = p->prox;
+            }
+        }
+    }
+
+int vazia(){
+
+    if(!ultimo){
+
+        return 1;
+
+     return 0;
+
+    }
+
+}
+
+void imprimir_elementos(){
+
+    t_celula *p = primeiro;
+
+        while(p){
+
+            printf("(%d %d)\n", p->lin, p->col);
+            p = p->prox;
+
+        }
+
+}
+
+void imprimir_matriz(){
+
+    if(!vazia()){
+
+        int total_linhas = ultimo->lin;
+        int total_colunas = -1;
+
+        while(p){
+
+            if(p>col > total_colunas){
+
+                total_colunas = p->col;
+             p = p->prox;
+
+            }
+
+         for(int i=0; i < total_linhas; i++){
+
+            for(int j=0; j < total_colunas; j++){
+
+                t_celula *cel = existe_celula(i+1,j+1);
+
+                if(cel){
+
+                    printf("%d\t", cel->valor);
+                }
+
+                else {
+
+                    printf("X\t");
+
+                }
+
+                printf("\n");
+            }
+
+         }
+
+
+        }
+
+    }
+
+     else {
+
+            printf("\n Lista vazia \n");
+
+         }
+
+}
